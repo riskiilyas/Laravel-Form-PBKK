@@ -1,5 +1,5 @@
 ## Assignment 2
-Riski Ilyas (5025211189)
+Riski Ilyas (5025211189)<br>
 Mikhael Aryasatya Nugraha (5025211062)
 
 - Choose a final project topic.
