@@ -1,4 +1,6 @@
 ## Assignment 2
+Riski Ilyas (5025211189)
+
 - Choose a final project topic.
   - For Final project, we have chosen Hotel Reservation App
 - Create a single view page that displays data from the Database (using the Laravel framework)
