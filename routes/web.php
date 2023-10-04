@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [RegisterController::class, 'home'])->name('register.home');
 Route::get('/register', [RegisterController::class, 'index'])->name('register.view');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');

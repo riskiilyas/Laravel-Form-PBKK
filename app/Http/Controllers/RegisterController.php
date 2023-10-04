@@ -4,24 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
+    public function home()
+    {
+        $users = User::all(); // Retrieve all users from the 'users' table
+    
+        return view('welcome', compact('users'));
+    }
+
+
     public function index() {
         return view('register');
     }
-
-    // public function store(Request $request) {
-
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|unique:users',
-    //         'password' => 'required|string|min:8',
-    //         'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
-    //     ]);
-
-    //     return redirect()->route('register.view')->with('success', 'Registration successful!')->with('request', $request);
-    // }
 
     public function store(Request $request)
 {
@@ -32,7 +29,7 @@ class RegisterController extends Controller
         'email' => 'required|email',
         'age' => 'required|numeric|min:17|max:100',
         'height' => 'required|numeric|min:100',
-        'credit' => 'required|numeric|between:2.50,99.00',
+        'credit' => 'required|numeric|between:2.50,99.99',
         'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
     ]);
 
@@ -43,24 +40,32 @@ class RegisterController extends Controller
     $fileName = time() . '.' . $request->image->extension();
     $request->image->storeAs('public/images', $fileName);
 
-    // // Handle image upload
-    // if ($request->hasFile('image')) {
-    //     $imagePath = $request->file('image')->store('profile_images', 'public');
-    // } else {
-    //     $imagePath = null;
-    // }
+    $user = new User;
+    $user->name = $request->input('name');
+    $user->address = $request->input('address');
+    $user->email = $request->input('email');
+    $user->age = $request->input('age');
+    $user->height = $request->input('height');
+    $user->credit = $request->input('credit');
+    $user->image_path = $fileName; // Store the image path
 
-    // Save other user data to the database (e.g., User model)
+    // Save the user to the database
+    $user->save();
 
-    // Redirect to a page to display the data, including the image
-    return view('registration-success', [
-        'imagePath' => $fileName,
-        'name' => $request->input('name'),
-        'address' => $request->input('address'),
-        'email' => $request->input('email'),
-        'age' => $request->input('age'),
-        'height' => $request->input('height'),
-        'credit' => $request->input('credit'),
-        'successMessage' => 'Registration successful!'
-    ]);}
+
+    // // Redirect to a page to display the data, including the image
+    // return view('registration-success', [
+    //     'imagePath' => $fileName,
+    //     'name' => $request->input('name'),
+    //     'address' => $request->input('address'),
+    //     'email' => $request->input('email'),
+    //     'age' => $request->input('age'),
+    //     'height' => $request->input('height'),
+    //     'credit' => $request->input('credit'),
+    //     'successMessage' => 'Registration successful!'
+    // ]);
+    $users = User::all(); // Retrieve all users from the 'users' table
+    
+    return view('welcome', compact('users'));    
+}
 }
