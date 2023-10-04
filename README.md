@@ -1,5 +1,6 @@
 ## Assignment 2
 Riski Ilyas (5025211189)
+Mikhael Aryasatya Nugraha (5025211062)
 
 - Choose a final project topic.
   - For Final project, we have chosen Hotel Reservation App
